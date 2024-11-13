@@ -46,7 +46,7 @@ public class LoginController {
 			@Override
 			public void windowClosed(WindowEvent e) {
 				if (listaDadosView != null && !listaDadosView.isEmpty()) {
-					new PrincipalController(listaDadosView.get(0), listaDadosView.get(1));
+					new PrincipalControle(listaDadosView.get(0), listaDadosView.get(1));
 				}
 			}
 		});
@@ -71,11 +71,11 @@ public class LoginController {
 					view.dispose();
 				} else {
 //					view.mostrarMensagem("Usuário ou senha inválidos!", "Atenção");
-					new MensagemView("Usuário ou senha inválidos!",2);
+					new MensagemView("Usuário ou senha inválidos!", 2);
 				}
 			} else {
 //				view.mostrarMensagem("Verifique as informações!", "Atenção");
-				new MensagemView("Verifique as informações!",2);
+				new MensagemView("Verifique as informações!", 2);				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

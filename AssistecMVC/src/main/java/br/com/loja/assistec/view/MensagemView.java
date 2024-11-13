@@ -1,3 +1,4 @@
+
 package br.com.loja.assistec.view;
 
 import java.awt.BorderLayout;
@@ -5,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -15,130 +15,113 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class MensagemView extends JDialog {
-
 	private static final long serialVersionUID = 1L;
-	private int resposta;
+	int resposta;
 
 	public MensagemView(String mensagem, int tipo) {
 		setTitle("Mensagem");
 		setModal(true);
+		setSize(350,200);
+		setLocationRelativeTo(null);
+		setResizable(false);
 
-		// Criar Panel
-		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout());
-		add(panel);
+		JPanel painel = new JPanel();
+		painel.setLayout(new BorderLayout());
+		add(painel);
 
-		// Rótulo para mensagem
 		JLabel lblMensagem = new JLabel(mensagem, SwingConstants.CENTER);
-		panel.add(lblMensagem, BorderLayout.CENTER);
+		painel.add(lblMensagem, BorderLayout.CENTER);
 
-		// caminho do icone
-		String iconPath;
+		String iconeURL;
 		switch (tipo) {
-		case 0: // Erro
-			iconPath = "/br/com/loja/assistec/icones/erro.png";
-			lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconPath)));
+		case 0:
+			iconeURL = "/br/com/loja/assistec/icones/errro.png";
+			lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconeURL)));
 			break;
-		case 1: // Informação
-			iconPath = "/br/com/loja/assistec/icones/info.png";
-			lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconPath)));
+		case 1:
+			iconeURL = "/br/com/loja/assistec/icones/info.png";
+			lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconeURL)));
 			break;
-		case 2: // Atenção
-			iconPath = "/br/com/loja/assistec/icones/alerta.png";
-			lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconPath)));
+		case 2:
+			iconeURL = "/br/com/loja/assistec/icones/alerta.png";
+			lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconeURL)));
 			break;
-		case 3: // Sucesso
-			iconPath = "/br/com/loja/assistec/icones/sucesso.png";
-			lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconPath)));
+		case 3:
+			iconeURL = "/br/com/loja/assistec/icones/sucesso.png";
+			lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconeURL)));
 			break;
-		case 10: // Assistec
-			iconPath = "/br/com/loja/assistec/icones/assistec.png";
-			lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconPath)));
+		case 10:
+			iconeURL = "/br/com/loja/assistec/icones/assistec.png";
+			lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconeURL)));
 			break;
 		}
-
-		JPanel painelSul = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-		// Cria um esaço vazio
+		
+		JPanel painelSul = new JPanel(new FlowLayout(FlowLayout.CENTER,20,10));
 		painelSul.add(new JPanel());
-		JButton btnOK = new JButton("OK");
-		// Tamanho do botao
-		btnOK.setPreferredSize(new Dimension(100, 30));
-		btnOK.addActionListener(new ActionListener() {
-			@Override
+		JButton btOk = new JButton("Ok");
+		btOk.setPreferredSize(new Dimension(100,30));
+		btOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-			}
-		});
-		painelSul.add(btnOK);
+			}});
+		
+		painelSul.add(btOk);
 		painelSul.add(new JPanel());
-
-		painelSul.setBorder(new EmptyBorder(10, 10, 10, 10));
-
-		panel.add(painelSul, BorderLayout.SOUTH);
-
-		getRootPane().setDefaultButton(btnOK);
-		setSize(350, 200);
-		setResizable(false);
-		setLocationRelativeTo(null);
+		painelSul.setBorder(new EmptyBorder(10,10,10,10));
+		painel.add(painelSul,BorderLayout.SOUTH);
+		
+		getRootPane().setDefaultButton(btOk);
 		setVisible(true);
-
 	}
 
-	// Método para mensagens de perguntas
-	public MensagemView(String pergunta) {
+	public MensagemView(String mensagem) {
 		setTitle("Mensagem");
 		setModal(true);
-
-		// Criar Panel
-		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout());
-		add(panel);
-
-		JLabel labelPergunta = new JLabel(pergunta, SwingConstants.CENTER);
-		String iconPath;
-		iconPath = "/br/com/loja/assistec/icones/question.png";
-		labelPergunta.setIcon(new ImageIcon(getClass().getResource(iconPath)));
-		panel.add(labelPergunta, BorderLayout.CENTER);
-
-		JPanel painelSul = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-
-		JButton btnSim = new JButton("Sim");
-		// Tamanho do botao
-		btnSim.setPreferredSize(new Dimension(100, 30));
-		btnSim.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				resposta = 1;
-				setVisible(false);
-			}
-		});
-
-		painelSul.add(btnSim);
-
-		JButton btnNao = new JButton("Não");
-		// Tamanho do botao
-		btnNao.setPreferredSize(new Dimension(100, 30));
-		btnNao.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				resposta = 0;
-				setVisible(false);
-			}
-		});
-		painelSul.add(btnNao);
-
-		painelSul.setBorder(new EmptyBorder(10, 10, 10, 10));
-
-		panel.add(painelSul, BorderLayout.SOUTH);
-
-		setSize(400, 200);
-		setResizable(false);
+		setSize(350,200);
 		setLocationRelativeTo(null);
+		setResizable(false);
+
+		JPanel painel = new JPanel();
+		painel.setLayout(new BorderLayout());
+		add(painel);
+
+		JLabel lblMensagem = new JLabel(mensagem, SwingConstants.CENTER);
+		painel.add(lblMensagem, BorderLayout.CENTER);
+
+		
+		String iconeURL = "/br/com/loja/assistec/icones/alerta.png";
+		lblMensagem.setIcon(new ImageIcon(getClass().getResource(iconeURL)));
+		
+		JPanel painelSul = new JPanel(new FlowLayout(FlowLayout.CENTER,20,10));
+		painelSul.add(new JPanel());
+		
+		JButton btSim = new JButton("Sim");
+		btSim.setPreferredSize(new Dimension(100,30));
+		btSim.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				resposta =0;
+			}});
+		
+		JButton btNao = new JButton("Não");
+		btNao.setPreferredSize(new Dimension(100,30));
+		btNao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				resposta =1;
+			}});
+		
+		painelSul.add(btSim);
+		painelSul.add(btNao);
+		painelSul.add(new JPanel());
+		painelSul.setBorder(new EmptyBorder(10,10,10,10));
+		painel.add(painelSul,BorderLayout.SOUTH);
+		
 		setVisible(true);
-
 	}
-
+	
 	public int getResposta() {
 		return resposta;
 	}
+
 }
