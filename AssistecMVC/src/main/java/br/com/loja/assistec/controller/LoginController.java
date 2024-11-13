@@ -10,10 +10,12 @@ import java.util.ArrayList;
 import br.com.loja.assistec.model.LoginDAO;
 import br.com.loja.assistec.model.Usuario;
 import br.com.loja.assistec.view.LoginView;
+import br.com.loja.assistec.view.PrincipalView;
 
 public class LoginController {
 	private LoginDAO dao;
 	private LoginView view;
+	private PrincipalView pview;
 	private ArrayList<String> listaDadosView;
 
 	public LoginController(LoginDAO dao, LoginView view) {
@@ -45,8 +47,8 @@ public class LoginController {
 			@Override
 			public void windowClosed(WindowEvent e) {
 				if (listaDadosView != null && !listaDadosView.isEmpty()) {
-					//fazer esse
-					new PrincipalController(listaDadosView.get(0), listaDadosView.get(1));
+					pview = new PrincipalView(listaDadosView.get(0), listaDadosView.get(1));
+					new PrincipalControle(listaDadosView.get(0), listaDadosView.get(1),pview);
 				}
 			}
 		});

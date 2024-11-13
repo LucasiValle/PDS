@@ -1,4 +1,4 @@
-package br.com.loja.assistec.view;
+package br.com.loja.Assistec.visao;
 
 import java.awt.EventQueue;
 
@@ -15,10 +15,21 @@ import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class PrincipalView extends JFrame {
-	
-	private JMenuItem menuSair;
-	private JMenuItem menuUsuarios;
-	private JMenuItem menuSobre;
+
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					PrincipalView frame = new PrincipalView("","");
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
 	
 	public PrincipalView(String user,String perfil) {
 		setTitle("Sistema de Gestão ASSISTEC");
@@ -31,16 +42,29 @@ public class PrincipalView extends JFrame {
 		JMenu menuArquivo = new JMenu("Arquivo");
 		menuBar.add(menuArquivo);
 		
-		menuSair = new JMenuItem("Sair");
-		menuSair.setActionCommand("sair");
+		JMenuItem menuSair = new JMenuItem("Sair");
+		menuSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int sair = JOptionPane.showConfirmDialog(null, "Quer sair?","Sair",JOptionPane.YES_NO_OPTION);
+				if(sair == 0) {
+					System.exit(0);
+				}
+				
+			}
+		});
 		menuArquivo.add(menuSair);
 		
 		JMenu menuCadastro = new JMenu("Cadastro");
 		menuCadastro.setEnabled(false);
 		menuBar.add(menuCadastro);
 		
-		menuUsuarios = new JMenuItem("Usuários");
-		menuUsuarios.setActionCommand("usuario");
+		JMenuItem menuUsuarios = new JMenuItem("Usuários");
+		menuUsuarios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListarUsuarios();
+			}
+
+		});
 		menuCadastro.add(menuUsuarios);
 		
 		JMenu menuRelatorio = new JMenu("Relatórios");
@@ -53,8 +77,12 @@ public class PrincipalView extends JFrame {
 		JMenu menuAjuda = new JMenu("Ajuda");
 		menuBar.add(menuAjuda);
 		
-		menuSobre = new JMenuItem("Sobre");
-		menuSobre.setActionCommand("sobre");
+		JMenuItem menuSobre = new JMenuItem("Sobre");
+		menuSobre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "ASSISTEC ver 1.0");
+			}
+		});
 		menuAjuda.add(menuSobre);
 		
 		JLabel lblUsuário = new JLabel("");
@@ -80,9 +108,18 @@ public class PrincipalView extends JFrame {
 			menuRelatorio.setEnabled(true);
 		}
 	}
-	public void addPrincipalListener(ActionListener listener) {
-		menuUsuarios.addActionListener(listener);
-		menuSobre.addActionListener(listener);
-		menuSair.addActionListener(listener);
-	}	
+
+
+	protected void ListarUsuarios() {
+		ListarUsuariosvView luv = null;
+		try {
+			luv = new ListarUsuariosvView();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		luv.setLocationRelativeTo(luv);
+		dispose();
+		luv.setVisible(true);
+	}
 }
