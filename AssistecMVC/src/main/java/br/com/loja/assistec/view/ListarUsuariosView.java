@@ -80,4 +80,8 @@ public class ListarUsuariosView extends JFrame {
 		btnFechar.addActionListener(listener);
 	
 	}
+	public void mostrarUsuariosTabela(ArrayList<Usuarios>listaUsuarios) {
+		usuarioTableModel = new UsuarioTableModel(listaUsuarios);
+		tabela.setModel(usuarioTableModel);
+	}
 }
