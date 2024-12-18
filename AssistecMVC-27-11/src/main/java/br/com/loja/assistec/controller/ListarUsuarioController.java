@@ -2,6 +2,8 @@ package br.com.loja.assistec.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -29,8 +31,17 @@ public class ListarUsuarioController {
 		listarView.addListarUsuariosListener(new ListarUsuariosListener());
 		listarView.addWindowListener(new JanelaAberturaListener());
 		listarView.addTabelaMouseListener(new TabelaMouseClickListener());
+		listarView.addBuscarKayListener(new BuscaKeyListener());
+		
 	}
 
+	public class BuscaKeyListener extends KeyAdapter {
+		public void KeyPressed(KeyEvent e) {
+			listarView.filtrarRegistro();
+		}
+	}
+	
+	
 	public void carregarUsuarios() throws SQLException {
 		try {
 		ArrayList<Usuario> listaUsuarios = listarUsuarios();
